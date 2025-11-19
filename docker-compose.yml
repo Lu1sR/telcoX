@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  # ===========================================
+  # MySQL Database Service
+  # ===========================================
+  mysql:
+    image: mysql:8.0
+    container_name: telcox_mysql
+    restart: unless-stopped
+    
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TZ:-UTC}
+    
+    ports:
+      - "3306:3306"
+    
+    volumes:
+      # Named volume for persistent MySQL data
+      - mysql_data:/var/lib/mysql
+      # Optional: custom MySQL configuration
+      # - ./database/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      # Optional: initialization scripts (run once on first startup)
+      # - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    
+    networks:
+      - telcox_network
+    
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+# ===========================================
+# Named Volumes
+# ===========================================
+volumes:
+  mysql_data:
+    driver: local
+    name: telcox_mysql_data
+
+# ===========================================
+# Networks
+# ===========================================
+networks:
+  telcox_network:
+    driver: bridge
+    name: telcox_network
