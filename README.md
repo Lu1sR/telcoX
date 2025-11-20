@@ -135,11 +135,14 @@ open http://localhost:4200
 
 **Pruebas Unitarias** (17 pruebas - Modelos, Servicios, Vistas API):
 ```bash
-# Ejecutar solo pruebas unitarias
+# Ejecutar solo pruebas unitarias, se usa script para cambiar de datasource a sqlite
 docker compose exec backend ./run_tests.sh
 
-# Con reporte de cobertura
+# Ejecutar pruebas unitarias con reporte de cobertura
 docker compose exec backend ./run_tests.sh --cov
+
+# Generar reporte HTML de cobertura
+docker compose exec backend ./run_tests.sh --cov-html
 ```
 
 **Pruebas de Integración** (54 pruebas - API + BD + Servicios):
@@ -147,20 +150,12 @@ docker compose exec backend ./run_tests.sh --cov
 # Ejecutar solo pruebas de integración
 docker compose exec backend pytest -m integration
 
-# Ejecutar todas las pruebas (unitarias + integración)
-docker compose exec backend pytest
-
-# Con salida detallada
-docker compose exec backend pytest -v
 ```
 
 ### Pruebas Frontend (Angular + Jasmine/Karma)
 
 ```bash
-# Dentro del contenedor frontend (modo watch)
-docker compose exec frontend npm test
-
-# Ejecución única headless (recomendado para evaluación)
+# Ejecución única headless (recomendado para evaluación -- one time execution)
 docker compose exec frontend npm run test:ci
 
 # Con reporte de cobertura

@@ -32,7 +32,7 @@ module.exports = function(config) {
       ]
     },
     reporters: ['progress', 'kjhtml'],
-    browsers: ['ChromeHeadless'],
+    browsers: ['ChromeHeadlessCI'],  // Use custom launcher with Docker-safe flags
     restartOnFileChange: true,
     
     // Custom launcher for Docker/CI environments
@@ -49,8 +49,7 @@ module.exports = function(config) {
       }
     },
     
-    // Use ChromeHeadlessCI in CI environments
-    // Use ChromeHeadless for local Docker development
+    // Use ChromeHeadlessCI by default for Docker compatibility
     singleRun: false,
     
     // Increase timeouts for Docker environments
