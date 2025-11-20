@@ -85,11 +85,10 @@ node --version
 ```bash
 # Clonar repositorio
 cd /ruta/a/tus/proyectos
-git clone <repository-url>
+git clone https://github.com/Lu1sR/telcoX.git
 cd telcoX
 
-# Configurar variables de entorno
-cp .env.example .env
+# Configurar variables de entorno esta en .env
 # Edita .env y actualiza MYSQL_ROOT_PASSWORD, MYSQL_PASSWORD, SECRET_KEY
 ```
 
