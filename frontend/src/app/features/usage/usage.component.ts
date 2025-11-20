@@ -20,8 +20,9 @@ export class UsageComponent implements OnInit, OnDestroy {
   error: string | null = null;
   isEmpty = false;
 
-  // For now, use a fixed customer ID. Can be parameterized later via route params
-  private readonly customerId = 1;
+  // Customer ID selector for testing
+  customerId = 1;
+  customerIdInput: number = 1;
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -71,6 +72,16 @@ export class UsageComponent implements OnInit, OnDestroy {
    */
   retry(): void {
     this.loadUsageData();
+  }
+
+  /**
+   * Load customer data by ID (for testing purposes)
+   */
+  loadCustomerById(): void {
+    if (this.customerIdInput && this.customerIdInput > 0) {
+      this.customerId = this.customerIdInput;
+      this.loadUsageData();
+    }
   }
 
   /**

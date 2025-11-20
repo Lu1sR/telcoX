@@ -1,6 +1,6 @@
 # Portal de Visualización de Consumo TelcoX
 
-Un portal de autoservicio de telecomunicaciones full-stack de grado productivo que permite a los clientes ver sus datos de consumo, saldos de cuenta y métricas de consumo en tiempo real. Construido con tecnologías modernas y mejores prácticas de la industria, este sistema demuestra arquitectura de nivel empresarial, diseño de código limpio, pruebas exhaustivas y experiencia de usuario pulida.
+Un portal de autoservicio de telecomunicaciones full-stack listo para producción que permite a los clientes ver sus datos de consumo, saldos de cuenta y métricas de consumo en tiempo real. Construido con tecnologías modernas y mejores prácticas de la industria, este sistema demuestra arquitectura de nivel empresarial, diseño de código limpio, pruebas exhaustivas y experiencia de usuario pulida.
 
 ## 🚀 Qué Hace Este Sistema
 

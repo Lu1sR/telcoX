@@ -1,6 +1,19 @@
-<!-- My Usage Screen -->
+<!-- Mi Consumo -->
 <div class="usage-container">
   
+  <!-- Customer ID Selector (Testing) -->
+  <div class="customer-selector">
+    <label for="customerId">🧪 Pruebas - Cargar Cliente ID:</label>
+    <input 
+      type="number" 
+      id="customerId" 
+      [(ngModel)]="customerIdInput" 
+      min="1" 
+      placeholder="Ingresa ID"
+      (keyup.enter)="loadCustomerById()">
+    <button (click)="loadCustomerById()" class="load-btn">Cargar</button>
+  </div>
+
   <!-- Loading State -->
   <app-loading-spinner *ngIf="isLoading && !customerData"></app-loading-spinner>
 
@@ -15,8 +28,8 @@
   <!-- Empty State -->
   <app-empty-state 
     *ngIf="isEmpty && !isLoading && !error"
-    title="No Usage Data Available"
-    description="There is no usage data for this billing period yet. Check back later.">
+    title="Sin Datos de Consumo"
+    description="No hay datos de consumo disponibles para este período de facturación. Vuelva más tarde.">
   </app-empty-state>
 
   <!-- Success State: Display Customer Usage Data -->
@@ -27,44 +40,44 @@
       <div class="customer-info">
         <h1 class="customer-name">{{ customerName }}</h1>
         <p class="customer-email">{{ customerData.customer.email }}</p>
-        <p class="customer-code">Customer ID: {{ customerData.customer.customer_code }}</p>
+        <p class="customer-code">ID Cliente: {{ customerData.customer.customer_code }}</p>
       </div>
     </header>
 
-    <!-- Account Summary -->
+    <!-- Resumen de Cuenta -->
     <section class="account-summary" *ngIf="customerData.account">
       <div class="summary-card">
         <div class="summary-item">
-          <span class="summary-label">Account Balance</span>
+          <span class="summary-label">Saldo de Cuenta</span>
           <span class="summary-value balance">
             {{ accountBalance | currency:'USD':'symbol':'1.2-2' }}
           </span>
         </div>
         <div class="summary-item">
-          <span class="summary-label">Account Status</span>
+          <span class="summary-label">Estado de Cuenta</span>
           <span class="summary-value" [ngClass]="accountStatusClass">
             {{ accountStatus }}
           </span>
         </div>
         <div class="summary-item">
-          <span class="summary-label">Currency</span>
+          <span class="summary-label">Moneda</span>
           <span class="summary-value">{{ customerData.account.currency }}</span>
         </div>
       </div>
     </section>
 
-    <!-- Usage Cards Section -->
+    <!-- Sección de Tarjetas de Consumo -->
     <section class="usage-section" *ngIf="customerData.usage">
-      <h2 class="section-title">Current Billing Period</h2>
+      <h2 class="section-title">Período de Facturación Actual</h2>
       <p class="billing-period">
         {{ customerData.usage.billing_period_start | date:'MMM d, yyyy' }} - 
         {{ customerData.usage.billing_period_end | date:'MMM d, yyyy' }}
       </p>
 
       <div class="usage-cards">
-        <!-- Data Usage Card -->
+        <!-- Tarjeta de Consumo de Datos -->
         <app-usage-card
-          title="Data Usage"
+          title="Consumo de Datos"
           [used]="customerData.usage.data_used_mb"
           [total]="customerData.usage.data_limit_mb"
           [percentage]="customerData.usage.data_used_percentage"
@@ -73,9 +86,9 @@
           [isUnlimited]="!customerData.usage.data_limit_mb">
         </app-usage-card>
 
-        <!-- Minutes Usage Card -->
+        <!-- Tarjeta de Consumo de Minutos -->
         <app-usage-card
-          title="Minutes Usage"
+          title="Consumo de Minutos"
           [used]="customerData.usage.minutes_used"
           [total]="customerData.usage.minutes_limit"
           [percentage]="customerData.usage.minutes_used_percentage"
@@ -84,9 +97,9 @@
           [isUnlimited]="!customerData.usage.minutes_limit">
         </app-usage-card>
 
-        <!-- SMS Usage Card (Optional) -->
+        <!-- Tarjeta de Consumo de SMS -->
         <app-usage-card
-          title="SMS Usage"
+          title="Consumo de SMS"
           [used]="customerData.usage.sms_used"
           [total]="customerData.usage.sms_limit"
           [percentage]="customerData.usage.sms_used_percentage"
@@ -97,13 +110,13 @@
       </div>
     </section>
 
-    <!-- Additional Info -->
+    <!-- Información Adicional -->
     <section class="additional-info">
       <div class="info-card">
-        <h3>Need Help?</h3>
-        <p>If you have questions about your usage or billing, please contact our support team.</p>
+        <h3>¿Necesitas Ayuda?</h3>
+        <p>Si tienes preguntas sobre tu consumo o facturación, por favor contacta a nuestro equipo de soporte.</p>
         <p class="contact-info">
-          <strong>Phone:</strong> {{ customerData.customer.phone_number || 'Not provided' }}
+          <strong>Teléfono:</strong> {{ customerData.customer.phone_number || 'No proporcionado' }}
         </p>
       </div>
     </section>

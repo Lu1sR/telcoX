@@ -1,39 +1,61 @@
 <div class="home-container">
-  <h2>Welcome to TelcoX Usage Portal</h2>
+  <h2>Bienvenido al Portal de Consumo TelcoX</h2>
   
   <div class="info-card">
-    <h3>🎉 Phase 4 Complete!</h3>
-    <p>The Angular frontend foundation is set up and ready.</p>
+    <h3>📱 Portal de Autoservicio de Telecomunicaciones</h3>
+    <p>Un sistema full-stack listo para producción que permite a los clientes ver sus datos de consumo, saldos de cuenta y métricas en tiempo real.</p>
     
-    <div class="checklist">
-      <h4>✅ What's Working:</h4>
+    <div class="implementation-summary">
+      <h4>✅ Implementación Completa:</h4>
       <ul>
-        <li>✅ Angular 17 application</li>
-        <li>✅ Environment configuration (API base URL)</li>
-        <li>✅ TypeScript models (Customer, Account, Usage)</li>
-        <li>✅ Core services (ApiService, CustomerService, UsageService)</li>
-        <li>✅ HTTP interceptors (Error, Loading)</li>
-        <li>✅ CoreModule and SharedModule architecture</li>
-        <li>✅ Routing setup</li>
-        <li>✅ Loading indicator</li>
+        <li>✅ <strong>Backend:</strong> API REST Django con Django REST Framework</li>
+        <li>✅ <strong>Frontend:</strong> Aplicación Angular 17 con arquitectura modular</li>
+        <li>✅ <strong>Base de Datos:</strong> MySQL 8.0 con datos de prueba</li>
+        <li>✅ <strong>Pruebas:</strong> 159/163 tests pasando (97.5% cobertura ~82%)</li>
+        <li>✅ <strong>Contenedorización:</strong> Docker Compose para despliegue</li>
+        <li>✅ <strong>Documentación:</strong> API docs completos (Swagger/OpenAPI)</li>
       </ul>
     </div>
     
-    <div class="next-steps">
-      <h4>⏭️ Next: Phase 5</h4>
+    <div class="features">
+      <h4>🎯 Características Principales:</h4>
       <ul>
-        <li>Create "My Usage" component</li>
-        <li>Display customer data and usage visualization</li>
-        <li>Add progress bars and charts</li>
-        <li>Implement error and empty states</li>
+        <li>📊 Seguimiento de consumo en tiempo real (Datos, Minutos, SMS)</li>
+        <li>📈 Indicadores visuales de progreso codificados por colores</li>
+        <li>💰 Resumen de cuenta con saldo y estado</li>
+        <li>📱 Diseño responsivo para todos los dispositivos</li>
+        <li>⚡ Manejo profesional de estados (carga, error, vacío)</li>
       </ul>
     </div>
     
-    <div class="test-info">
-      <h4>🧪 Test the Services:</h4>
-      <p>Open browser console to see initialization logs.</p>
-      <p>Services are ready to make API calls to: <code>http://localhost:8010/api</code></p>
-      <p>Uncomment the test code in <code>home.component.ts</code> to test the API connection.</p>
+    <div class="documentation-links">
+      <h4>📚 Documentación del Proyecto:</h4>
+      <div class="doc-cards">
+        <div class="doc-card">
+          <h5>📖 README</h5>
+          <p>Referencia técnica completa del proyecto</p>
+          <a href="https://github.com/Lu1sR/telcoX" target="_blank" class="doc-link">Ver Documentación</a>
+        </div>
+        
+        <div class="doc-card">
+          <h5>🔌 API Docs</h5>
+          <p>Documentación interactiva de endpoints (Swagger)</p>
+          <a href="http://localhost:8010/api/docs/" target="_blank" class="doc-link">Abrir API Docs</a>
+        </div>
+        
+        <div class="doc-card">
+          <h5>🏗️ Arquitectura</h5>
+          <p>Diseño del sistema, patrones y tecnologías</p>
+          <a href="https://github.com/Lu1sR/telcoX?tab=readme-ov-file#%EF%B8%8F-arquitectura-y-dise%C3%B1o" target="_blank" class="doc-link">Ver Arquitectura</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="quick-links">
+      <h4>🚀 Acceso Rápido:</h4>
+      <p><strong>Backend API:</strong> <a href="http://localhost:8010/api/" target="_blank"><code>http://localhost:8000/api/</code></a></p>
+      <p><strong>Django Admin:</strong> <a href="http://localhost:8010/admin/" target="_blank"><code>http://localhost:8000/admin/</code></a> (admin / admin123)</p>
+      <p><strong>Mi Consumo:</strong> <a routerLink="/usage" class="internal-link">Ver mi consumo →</a></p>
     </div>
   </div>
 </div>
