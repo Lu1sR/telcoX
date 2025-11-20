@@ -1,0 +1,112 @@
+<!-- My Usage Screen -->
+<div class="usage-container">
+  
+  <!-- Loading State -->
+  <app-loading-spinner *ngIf="isLoading && !customerData"></app-loading-spinner>
+
+  <!-- Error State -->
+  <app-error-message 
+    *ngIf="error && !isLoading"
+    [message]="error"
+    [showRetry]="true"
+    (retry)="retry()">
+  </app-error-message>
+
+  <!-- Empty State -->
+  <app-empty-state 
+    *ngIf="isEmpty && !isLoading && !error"
+    title="No Usage Data Available"
+    description="There is no usage data for this billing period yet. Check back later.">
+  </app-empty-state>
+
+  <!-- Success State: Display Customer Usage Data -->
+  <div *ngIf="customerData && !isLoading && !error && !isEmpty" class="usage-content">
+    
+    <!-- Header: Customer Info -->
+    <header class="usage-header">
+      <div class="customer-info">
+        <h1 class="customer-name">{{ customerName }}</h1>
+        <p class="customer-email">{{ customerData.customer.email }}</p>
+        <p class="customer-code">Customer ID: {{ customerData.customer.customer_code }}</p>
+      </div>
+    </header>
+
+    <!-- Account Summary -->
+    <section class="account-summary" *ngIf="customerData.account">
+      <div class="summary-card">
+        <div class="summary-item">
+          <span class="summary-label">Account Balance</span>
+          <span class="summary-value balance">
+            {{ accountBalance | currency:'USD':'symbol':'1.2-2' }}
+          </span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Account Status</span>
+          <span class="summary-value" [ngClass]="accountStatusClass">
+            {{ accountStatus }}
+          </span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Currency</span>
+          <span class="summary-value">{{ customerData.account.currency }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Usage Cards Section -->
+    <section class="usage-section" *ngIf="customerData.usage">
+      <h2 class="section-title">Current Billing Period</h2>
+      <p class="billing-period">
+        {{ customerData.usage.billing_period_start | date:'MMM d, yyyy' }} - 
+        {{ customerData.usage.billing_period_end | date:'MMM d, yyyy' }}
+      </p>
+
+      <div class="usage-cards">
+        <!-- Data Usage Card -->
+        <app-usage-card
+          title="Data Usage"
+          [used]="customerData.usage.data_used_mb"
+          [total]="customerData.usage.data_limit_mb"
+          [percentage]="customerData.usage.data_used_percentage"
+          unit="MB"
+          icon="📊"
+          [isUnlimited]="!customerData.usage.data_limit_mb">
+        </app-usage-card>
+
+        <!-- Minutes Usage Card -->
+        <app-usage-card
+          title="Minutes Usage"
+          [used]="customerData.usage.minutes_used"
+          [total]="customerData.usage.minutes_limit"
+          [percentage]="customerData.usage.minutes_used_percentage"
+          unit="min"
+          icon="📞"
+          [isUnlimited]="!customerData.usage.minutes_limit">
+        </app-usage-card>
+
+        <!-- SMS Usage Card (Optional) -->
+        <app-usage-card
+          title="SMS Usage"
+          [used]="customerData.usage.sms_used"
+          [total]="customerData.usage.sms_limit"
+          [percentage]="customerData.usage.sms_used_percentage"
+          unit="SMS"
+          icon="💬"
+          [isUnlimited]="!customerData.usage.sms_limit">
+        </app-usage-card>
+      </div>
+    </section>
+
+    <!-- Additional Info -->
+    <section class="additional-info">
+      <div class="info-card">
+        <h3>Need Help?</h3>
+        <p>If you have questions about your usage or billing, please contact our support team.</p>
+        <p class="contact-info">
+          <strong>Phone:</strong> {{ customerData.customer.phone_number || 'Not provided' }}
+        </p>
+      </div>
+    </section>
+
+  </div>
+</div>

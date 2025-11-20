@@ -1,0 +1,27 @@
+<div class="usage-card">
+  <div class="card-header">
+    <span class="card-icon">{{ icon }}</span>
+    <h3 class="card-title">{{ title }}</h3>
+  </div>
+
+  <div class="card-body">
+    <div class="usage-stats">
+      <p class="usage-text">{{ displayText }}</p>
+      <p class="usage-percentage" *ngIf="!isUnlimited && percentage !== null">
+        {{ progressPercentage | number:'1.0-0' }}% used
+      </p>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="!isUnlimited">
+      <div 
+        class="progress-bar"
+        [style.width.%]="progressPercentage"
+        [style.background-color]="progressColor">
+      </div>
+    </div>
+
+    <div class="unlimited-badge" *ngIf="isUnlimited">
+      <span>∞ Unlimited</span>
+    </div>
+  </div>
+</div>

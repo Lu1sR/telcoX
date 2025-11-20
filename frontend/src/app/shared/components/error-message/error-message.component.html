@@ -1,0 +1,13 @@
+<div class="error-message-container">
+  <div class="error-card">
+    <div class="error-icon">⚠️</div>
+    <h3 class="error-title">{{ message }}</h3>
+    <p class="error-details" *ngIf="details">{{ details }}</p>
+    <button 
+      *ngIf="showRetry" 
+      class="retry-button"
+      (click)="onRetry()">
+      🔄 Try Again
+    </button>
+  </div>
+</div>
