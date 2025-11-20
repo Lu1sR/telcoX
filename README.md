@@ -401,6 +401,53 @@ docker compose up -d --build frontend
 
 ---
 
+## 📸 Capturas de Pantalla
+
+### Página de Inicio (Home)
+![Home Page](home_screenshot.png)
+
+**Características Mostradas**:
+- Bienvenida al portal en español
+- Resumen de implementación completa
+- Enlaces a documentación del proyecto
+- Acceso rápido a API, Django Admin y Mi Consumo
+- Diseño limpio y profesional
+
+### Página Mi Consumo (Usage)
+![Usage Page](usage_screenshot.png)
+
+**Características Mostradas**:
+- **🧪 Funcionalidad de Pruebas**: Selector de ID de cliente en la parte superior para pruebas
+  - Campo de entrada para ingresar cualquier ID de cliente (1-5 disponibles en datos de prueba)
+  - Botón "Cargar" para cambiar dinámicamente entre clientes
+  - Atajo de teclado: Presiona Enter para cargar
+  - Útil para demostrar datos de diferentes usuarios sin necesidad de autenticación
+- Información del cliente (nombre, email, código)
+- Resumen de cuenta (saldo, estado, moneda)
+- Tarjetas de consumo con barras de progreso:
+  - Consumo de Datos (MB)
+  - Consumo de Minutos (min)
+  - Consumo de SMS
+- Período de facturación actual
+- Todo el contenido en español
+- Diseño responsivo y moderno
+
+**IDs de Cliente Disponibles para Pruebas**:
+1. John Doe
+2. Jane Smith
+3. Bob Johnson
+4. Alice Williams
+5. Charlie Brown
+
+**Cómo Usar el Selector de Cliente**:
+1. Navega a la página "Mi Consumo"
+2. En el banner amarillo superior, ingresa un ID (1-5)
+3. Haz clic en "Cargar" o presiona Enter
+4. La página se actualiza con los datos del nuevo cliente
+
+Esta funcionalidad permite probar y demostrar la aplicación con diferentes perfiles de usuario sin implementar autenticación completa.
+
+---
 
 **✅ Completado**:
 - Aplicación full-stack (API REST Django + SPA Angular)
