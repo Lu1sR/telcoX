@@ -4,6 +4,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Install Chromium for running tests in headless mode
+# Also install curl for healthcheck
 # Required for Karma tests inside Docker container
 RUN apk add --no-cache \
     chromium \
@@ -11,7 +12,8 @@ RUN apk add --no-cache \
     freetype \
     harfbuzz \
     ca-certificates \
-    ttf-freefont
+    ttf-freefont \
+    curl
 
 # Environment variables for Chromium
 ENV CHROME_BIN=/usr/bin/chromium-browser \

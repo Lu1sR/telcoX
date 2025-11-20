@@ -3,7 +3,8 @@
 
 set -e
 
-host="$DB_HOST"
+# Use environment variables for host/port
+host="${DB_HOST:-mysql}"
 port="${DB_PORT:-3306}"
 max_tries=30
 count=0
@@ -21,5 +22,4 @@ if [ $count -eq $max_tries ]; then
   exit 1
 fi
 
-echo "MySQL is up - executing command"
-exec "$@"
+echo "MySQL is up - ready to proceed"

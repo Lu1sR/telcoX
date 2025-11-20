@@ -82,20 +82,22 @@ services:
       mysql:
         condition: service_healthy
     
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 90s
+    
     command: >
       sh -c "
         echo 'Waiting for MySQL...' &&
-        /app/scripts/wait_for_db.sh mysql 3306 &&
+        /app/scripts/wait_for_db.sh &&
         echo 'Running migrations...' &&
         python manage.py makemigrations &&
         python manage.py migrate &&
         echo 'Creating superuser...' &&
-        python manage.py shell -c \"
-        from django.contrib.auth import get_user_model;
-        User = get_user_model();
-        if not User.objects.filter(username='admin').exists():
-            User.objects.create_superuser('admin', 'admin@telcox.com', 'admin123')
-        \" || true &&
+        python manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@telcox.com', 'admin123') if not User.objects.filter(username='admin').exists() else None\" || true &&
         echo 'Seeding database...' &&
         python scripts/seed_data.py &&
         echo 'Collecting static files...' &&
@@ -130,7 +132,15 @@ services:
       - telcox_network
     
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4200"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
     
     command: npm start -- --host 0.0.0.0 --poll 2000
 

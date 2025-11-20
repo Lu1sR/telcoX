@@ -102,30 +102,55 @@ docker compose up -d
 # Ver logs
 docker compose logs -f
 
-# Esperar a que los servicios estén listos (30-60 segundos)
+# Esperar a que los servicios estén listos (90-120 segundos en primer inicio)
 ```
 
 ### 3. Verificar Servicios
 
 ```bash
-# Verificar que todos los contenedores estén corriendo
+# Verificar el estado de los servicios
 docker compose ps
 
+# El estado mostrará:
+# - mysql:     (healthy) - Base de datos lista
+# - backend:   (health: starting) → (healthy) - Migraciones y datos cargados
+# - frontend:  (health: starting) → (healthy) - Angular compilado y listo
+
+# Monitorear el progreso (opcional)
+docker compose logs -f backend   # Ver migraciones y seed data
+docker compose logs -f frontend  # Ver compilación de Angular
+
+# Cuando todos estén (healthy), la aplicación está lista
 # Probar API backend
-curl http://localhost:8000/api/health/
+curl http://localhost:8010/api/health/
 
 # Abrir frontend
 open http://localhost:4200
 ```
+
+**⚠️ Nota Importante**: El primer inicio tarda **90-120 segundos** aproximadamente:
+1. **MySQL** se inicializa (30s)
+2. **Backend** ejecuta migraciones y carga datos de prueba (40-60s)
+3. **Frontend** espera al backend y luego compila Angular (30-60s)
+
+Los healthchecks aseguran que cada servicio esté **realmente listo** antes del siguiente. Espera a que todos muestren `(healthy)` en `docker compose ps`.
 
 ### 4. Acceder a la Aplicación
 
 | Servicio | URL | Credenciales |
 |---------|-----|-------------|
 | **Frontend** | http://localhost:4200 | N/A (sin autenticación) |
-| **API Backend** | http://localhost:8000/api/ | N/A |
-| **Django Admin** | http://localhost:8000/admin/ | admin / admin123 |
-| **Docs API (Swagger)** | http://localhost:8000/api/docs/ | N/A |
+| **API Backend** | http://localhost:8010/api/ | N/A |
+| **Django Admin** | http://localhost:8010/admin/ | admin / admin123 |
+| **Docs API (Swagger)** | http://localhost:8010/api/docs/ | N/A |
+
+**💡 Nota sobre el Frontend**: Después de que `docker compose ps` muestre que el backend está `(healthy)` y el frontend `Started`, **espera 30-60 segundos adicionales** para que Angular termine de compilar. Puedes monitorear el progreso con:
+```bash
+docker compose logs -f frontend
+# Espera el mensaje: "✔ Compiled successfully"
+```
+
+Una vez que veas ese mensaje, la aplicación estará completamente lista en http://localhost:4200
 
 ---
 
